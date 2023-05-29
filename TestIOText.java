@@ -1,72 +1,73 @@
 import java.io.*;
 
 public class TestIOText {
-    private static  String FILE_NAME = "list_song.txt";
-    private static  String[] arraySong = {
-            "Hello California",
-            "We don't talk anymore",
-            "Nắng ấm xa dần",
-            "Em của ngày hôm qua",
-            "Thất tình"
-    };
+
+    public static void writeDataToFileWithFileWriter(String fileName, String[] duLieu) {
+        try {
+            FileWriter write1 = new FileWriter(fileName);
+            for (String strings : duLieu) {
+                write1.write(strings + "\n");
+            }
+            write1.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String readDataFromFileWithFileReader(String fileName) {
+        StringBuilder duLieu = new StringBuilder();
+        try {
+            FileReader docFile = new FileReader(fileName);
+            int file;
+            while ((file = docFile.read()) != -1) {
+                duLieu.append((char) file);
+            }
+            docFile.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return duLieu.toString();
+    }
+
+    public static void writeDataToFileWithBufferedWriter(String fileName, String[] duLieu) {
+        try {
+            BufferedWriter write2 = new BufferedWriter(new FileWriter(fileName));
+            for (String strings : duLieu) {
+                write2.write(strings);
+                write2.newLine();
+            }
+            write2.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String readDataFromFileWithBufferedReader(String fileName) {
+        StringBuilder duLieu = new StringBuilder();
+        try {
+            BufferedReader Read2 = new BufferedReader(new FileReader(fileName));
+            String string;
+            while ((string = Read2.readLine()) != null) {
+                duLieu.append(string);
+                duLieu.append("\n");
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return duLieu.toString();
+    }
 
     public static void main(String[] args) {
-        writeDataToFileWithFileWriter();
-        readDataFromFileWithFileReader();
-        writeDataToFileWithBufferedWriter();
-        readDataFromFileWithBufferedReader();
-    }
-
-    public static void writeDataToFileWithFileWriter() {
-        try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
-            for (String song : arraySong) {
-                fileWriter.write(song + "\n");
-            }
-            System.out.println(" successfully ");
-        } catch (IOException e) {
-            System.out.println("error");
-            e.printStackTrace();
-        }
-    }
-
-    public static void readDataFromFileWithFileReader() {
-        try (FileReader fileReader = new FileReader(FILE_NAME)) {
-            int character;
-            StringBuilder data = new StringBuilder();
-            while ((character = fileReader.read()) != -1) {
-                data.append((char) character);
-            }
-            System.out.println(" Mang la \n" + data.toString());
-        } catch (IOException e) {
-            System.out.println(" error ");
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeDataToFileWithBufferedWriter() {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (String song : arraySong) {
-                bufferedWriter.write(song);
-                bufferedWriter.newLine();
-            }
-            System.out.println("finish");
-        } catch (IOException e) {
-            System.out.println(" error ");
-            e.printStackTrace();
-        }
-    }
-
-    public static void readDataFromFileWithBufferedReader() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            StringBuilder data = new StringBuilder();
-            while ((line = bufferedReader.readLine()) != null) {
-                data.append(line).append("\n");
-            }
-            System.out.println("Mang duoc ghi: \n" + data.toString());
-        } catch (IOException e) {
-            System.out.println("Errol");
-            e.printStackTrace();
-        }
+        String fileName = "list_song.txt";
+        String[] arraySong = {"Hello california", "We don't talk any more", "Nắng ấm xa dần", "Em của ngày hôm qua", "Thất tình"};
+        System.out.println("sử dụng FileWriter để ghi dữ liệu từ mảng ");
+        writeDataToFileWithFileWriter(fileName, arraySong);
+        String Read1 = readDataFromFileWithFileReader(fileName);
+        System.out.println(Read1);
+        System.out.println("sử dụng BufferWriter để ghi dữ liệu từ mảng");
+        writeDataToFileWithBufferedWriter(fileName, arraySong);
+        String Read2 = readDataFromFileWithBufferedReader(fileName);
+        System.out.println(Read2);
     }
 }

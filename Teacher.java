@@ -1,4 +1,5 @@
 public class Teacher extends People{
+
     private String level;
     private String experience;
     private String subject;
@@ -36,5 +37,15 @@ public class Teacher extends People{
         this.level = level;
         this.experience = experience;
         this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return
+        "Teacher{" +
+                "level='" + level + '\'' +
+                ", experience='" + experience + '\'' +
+                ", subject='" + subject + '\'' + super.toString()+
+                '}';
     }
 }
